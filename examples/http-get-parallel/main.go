@@ -29,7 +29,6 @@ func startWebServer() {
 }
 
 type conn struct {
-	connection.Connection
 	realConn http.Client
 	Id       int
 	State    bool
@@ -63,7 +62,6 @@ func (c *conn) Serve(in chan message.Message, out chan message.Message) {
 }
 
 type msg struct {
-	message.Message
 	url    string
 	status string
 	resp   *http.Response
@@ -82,7 +80,7 @@ func main() {
 	counter := 0
 	cfg := pool.Config{
 		MaxConnections: *connNum,
-		CheckInterval:  time.Second,
+		CheckInterval:  timeoutDuration,
 		Dialer: func() (connection.Connection, error) {
 			counter += 1
 			c := &conn{

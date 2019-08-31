@@ -10,11 +10,9 @@ import (
 )
 
 type msg struct {
-	message.Message
 }
 
 type conn struct {
-	connection.Connection
 	State int
 	Id    int
 }

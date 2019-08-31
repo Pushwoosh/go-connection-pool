@@ -8,7 +8,6 @@ import (
 )
 
 type conn struct {
-	Connection
 	State bool
 	Id    int
 }
