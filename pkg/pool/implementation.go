@@ -8,7 +8,6 @@ import (
 )
 
 type Config struct {
-	Debug          bool
 	MaxConnections int
 	CheckInterval  time.Duration
 	Dialer         connection.Dialer
@@ -33,6 +32,7 @@ func NewPool(c Config) *Pool {
 func (p *Pool) makeConnections(out chan message.Message) {
 	for p.connections.Len() < p.config.MaxConnections {
 		conn, err := p.config.Dialer()
+		// TODO: limit retry here
 		if err != nil {
 			continue
 		}
@@ -43,9 +43,9 @@ func (p *Pool) makeConnections(out chan message.Message) {
 	}
 }
 
-// blocked call
+// blocked call, closing `in`-chan mean stop Serve
 func (p *Pool) Serve(in chan message.Message, out chan message.Message) error {
-	p.makeConnections(out)
+	go p.makeConnections(out)
 
 	go func() {
 		for range p.ticker.C {
@@ -67,6 +67,7 @@ func (p *Pool) Serve(in chan message.Message, out chan message.Message) error {
 	// wait until all connections complete work
 	for p.connections.Len() != 0 {
 		if err := p.connections.Clean(); err != nil {
+			// internal err which must not happens ;)
 			return err
 		}
 	}

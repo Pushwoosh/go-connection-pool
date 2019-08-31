@@ -1,10 +1,10 @@
 # What is it
 
-It's a library with connection pool implementation and all connections in pool works simultaneously.
- It's important if you want send more requests than one connection may serve. For example to fast
- send multiple email- or push-notifications.
+It's a library with connection pool implementation and all connections in pool work simultaneously.
+ It's important if you want send more requests than one connection may serve. For example, to send
+ multiple email- or push-notifications fast.
 
-In other hand it may be useful for site scrapping or ddos someone ;)
+On other hand it may be useful for site scrapping or to ddos someone ;)
 
 ## How to
 
@@ -27,7 +27,7 @@ go func() {
 ### Benchmarks
 
 It's too hard to make simple benchmarks, because project aims to
- improve performance in `IO`-bound task's so, there are some metrics
+ improve performance in `IO`-bound tasks so, there are some metrics
  from my mac:
 
 ```bash
@@ -50,7 +50,7 @@ user    0m0.762s
 sys     0m0.469s
 ```
 
-So in example on localhost pool wins in ~6 times.
+So in example on localhost pool wins in ~5 times.
 
 But if we try to use as target, for example, google.com, than the difference will be greater:
 

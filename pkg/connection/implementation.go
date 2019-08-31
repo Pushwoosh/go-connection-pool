@@ -71,7 +71,7 @@ RereadSlice:
 		if _, err = c.pop(index); err != nil {
 			return
 		}
-		// if we successfully remove item this slice is inconsistent
+		// if we successfully remove item loop's slice is inconsistent
 		goto RereadSlice
 	}
 	return
