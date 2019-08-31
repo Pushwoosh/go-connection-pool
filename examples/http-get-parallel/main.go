@@ -134,6 +134,8 @@ func main() {
 	}
 
 	log.Println("Start serving")
-	p.Serve(inChan, outChan)
+	if err := p.Serve(inChan, outChan); err != nil {
+		log.Printf("%#v\n", err)
+	}
 	close(outChan)
 }

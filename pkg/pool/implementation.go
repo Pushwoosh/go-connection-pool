@@ -44,7 +44,7 @@ func (p *Pool) makeConnections(out chan message.Message) {
 }
 
 // blocked call
-func (p *Pool) Serve(in chan message.Message, out chan message.Message) {
+func (p *Pool) Serve(in chan message.Message, out chan message.Message) error {
 	p.makeConnections(out)
 
 	go func() {
@@ -66,6 +66,9 @@ func (p *Pool) Serve(in chan message.Message, out chan message.Message) {
 	close(p.internalInCh)
 	// wait until all connections complete work
 	for p.connections.Len() != 0 {
-		_ = p.connections.Clean()
+		if err := p.connections.Clean(); err != nil {
+			return err
+		}
 	}
+	return nil
 }

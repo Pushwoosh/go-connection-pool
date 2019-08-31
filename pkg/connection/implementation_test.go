@@ -21,10 +21,11 @@ func (c *conn) Live() bool {
 	return c.State
 }
 
-func (c *conn) Bind(in <-chan message.Message, out chan<- message.Message) {
+func (c *conn) Serve(in chan message.Message, out chan message.Message) {
 	for m := range in {
 		out <- m
 	}
+	c.State = false
 }
 
 const defaultSize = 5
