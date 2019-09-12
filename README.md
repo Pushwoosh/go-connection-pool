@@ -4,7 +4,7 @@ It's a library with connection pool implementation and all connections in pool w
  It's important if you want send more requests than one connection may serve. For example, to send
  multiple email- or push-notifications fast.
 
-On other hand it may be useful for site scrapping or to ddos someone ;)
+On other hand it may be useful for site scrapping.
 
 ## How to
 
