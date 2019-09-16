@@ -43,13 +43,14 @@ func (p *Pool) makeConnections(out chan message.Message) {
 	}
 }
 
-// blocked call, closing `in`-chan mean stop Serve
+// Serve is blocked call, closing `in`-chan mean stop Serve
 func (p *Pool) Serve(in chan message.Message, out chan message.Message) error {
 	go p.makeConnections(out)
 
 	go func() {
 		for range p.ticker.C {
 			// iterate over all connections and remove all not live
+			// nolint: gosec
 			_ = p.connections.Clean()
 
 			// restore connection's num

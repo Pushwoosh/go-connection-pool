@@ -9,11 +9,11 @@ import (
 
 type conn struct {
 	State bool
-	Id    int
+	ID    int
 }
 
 func (c *conn) String() string {
-	return fmt.Sprintf("<%d,%t>", c.Id, c.Live())
+	return fmt.Sprintf("<%d,%t>", c.ID, c.Live())
 }
 
 func (c *conn) Live() bool {
@@ -46,8 +46,8 @@ func Test_Connections_Add(t *testing.T) {
 
 	conns := NewConnections(defaultSize)
 
-	for index := 1; index <= numForAdd; index += 1 {
-		conns.Add(&conn{Id: index})
+	for index := 1; index <= numForAdd; index++ {
+		conns.Add(&conn{ID: index})
 
 		if conns.Len() != index {
 			t.Fatalf("Len must be %d, but it's %d; %s", index, conns.Len(), conns)
@@ -60,8 +60,8 @@ func Test_Connections_Remove(t *testing.T) {
 
 	conns := NewConnections(defaultSize)
 
-	for index := 0; index < numForAdd; index += 1 {
-		conns.Add(&conn{Id: index})
+	for index := 0; index < numForAdd; index++ {
+		conns.Add(&conn{ID: index})
 	}
 
 	_, _ = conns.Pop(0)
@@ -86,13 +86,13 @@ func Test_Connections_Clean(t *testing.T) {
 	conns := NewConnections(defaultSize)
 
 	var state bool
-	for index := 0; index < numForAdd; index += 1 {
+	for index := 0; index < numForAdd; index++ {
 		if index%2 == 0 {
 			state = true
 		} else {
 			state = false
 		}
-		conns.Add(&conn{Id: index, State: state})
+		conns.Add(&conn{ID: index, State: state})
 	}
 
 	if err := conns.Clean(); err != nil {

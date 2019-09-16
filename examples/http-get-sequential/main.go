@@ -50,7 +50,7 @@ func main() {
 		startWebServer()
 	}
 
-	for counter := 0; counter < *reqNum; counter += 1 {
+	for counter := 0; counter < *reqNum; counter++ {
 		resp, err := conn.Get(*url)
 		log.Printf("%#v, %#v", resp, err)
 	}

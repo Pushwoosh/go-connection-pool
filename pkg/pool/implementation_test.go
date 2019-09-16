@@ -14,15 +14,15 @@ type msg struct {
 
 type conn struct {
 	State int
-	Id    int
+	ID    int
 }
 
 func (c *conn) String() string {
-	return fmt.Sprintf("<%d,%t>", c.Id, c.Live())
+	return fmt.Sprintf("<%d,%t>", c.ID, c.Live())
 }
 
 func (c *conn) Live() bool {
-	c.State += 1
+	c.State++
 	return c.State < 6
 }
 
@@ -61,7 +61,7 @@ func Test_Connections_Serve(t *testing.T) {
 
 	counter := 0
 	for range outChan {
-		counter += 1
+		counter++
 	}
 
 	if counter != items {

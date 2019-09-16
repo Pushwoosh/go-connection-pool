@@ -30,12 +30,12 @@ func startWebServer() {
 
 type conn struct {
 	realConn http.Client
-	Id       int
+	ID       int
 	State    bool
 }
 
 func (c *conn) String() string {
-	return fmt.Sprintf("<%d,%t>", c.Id, c.Live())
+	return fmt.Sprintf("<%d,%t>", c.ID, c.Live())
 }
 
 func (c *conn) Live() bool {
@@ -82,9 +82,9 @@ func main() {
 		MaxConnections: *connNum,
 		CheckInterval:  timeoutDuration,
 		Dialer: func() (connection.Connection, error) {
-			counter += 1
+			counter++
 			c := &conn{
-				Id:    counter,
+				ID:    counter,
 				State: true,
 				realConn: http.Client{
 					Timeout: timeoutDuration,
@@ -118,7 +118,7 @@ func main() {
 	go func() {
 		count := 0
 		for m := range outChan {
-			count += 1
+			count++
 			mTyped, ok := m.(msg)
 			if !ok {
 				continue
